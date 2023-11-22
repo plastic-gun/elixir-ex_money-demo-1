@@ -8,7 +8,8 @@ defmodule Demo.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Demo.ExchangeRatesInSingleMode
+      Supervisor.child_spec(Demo.ExchangeRatesInSingleMode, id: Demo.ExchangeRatesInSingleMode),
+      Supervisor.child_spec(Demo.ExchangeRatesInSharedMode, id: Demo.ExchangeRatesInSharedMode)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
