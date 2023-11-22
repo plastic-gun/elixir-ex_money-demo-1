@@ -1,21 +1,41 @@
 # Demo
 
-**TODO: Add description**
+A showcase for `Money.ExchangeRatesLite`.
 
-## Installation
+## Quick start
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `demo` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:demo, "~> 0.1.0"}
-  ]
-end
+```
+$ export OPEN_EXCHANGE_RATES_APP_ID="your app id"
+$ mix deps.get
+$ iex -S mix
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/demo>.
+## `Demo.ExchangeRatesInSingleMode`
 
+This is a demo for running `ExchangeRatesLite` in single mode.
+
+Play with it:
+
+```
+iex> Demo.ExchangeRatesInSingleMode.last_updated()
+iex> Demo.ExchangeRatesInSingleMode.latest_rates()
+iex> Demo.ExchangeRatesInSingleMode.historic_rates(~D[2022-02-01])
+```
+
+## `Demo.ExchangeRatesInSharedMode`
+
+This is a demo for running `ExchangeRatesLite` in shared mode. All the instances of `ExchangeRatesLite` are managed by a pool manager, which is supported by `:poolboy`.
+
+Play with it:
+
+```
+iex> Demo.ExchangeRatesInSharedMode.last_updated()
+iex> Demo.ExchangeRatesInSharedMode.latest_rates()
+iex> Demo.ExchangeRatesInSharedMode.historic_rates(~D[2022-02-01])
+```
+
+> From the callers' perspective, there's no difference between `Demo.ExchangeRatesInSingleMode` and `Demo.ExchangeRatesInSharedMode`. It indicates that the abstraction of `Money.ExchangeRatesLite` is compact enough to meet various use cases.
+
+## The graph of supervisor tree:
+
+![observer](./graphs/observer.png)
